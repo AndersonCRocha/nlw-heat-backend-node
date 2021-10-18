@@ -1,0 +1,15 @@
+{
+  "name": "backend-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Anderson Rocha",
+    "email": "dan.sjose20@gmail.com",
+    "url": "https://github.com/andersoncrocha"
+  },
+  "repository": {
+    "type": "GIT",
+    "url": "https://github.com/AndersonCRocha/nlw-heat-backend-node"
+  }
+}
