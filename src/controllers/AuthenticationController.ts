@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthenticationService } from "../services/AuthenticationService";
+import { AuthenticationService } from "../useCases/AuthenticationService";
 
 class AuthenticationController {
   constructor (
@@ -10,15 +10,14 @@ class AuthenticationController {
     return response.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`);
   }
 
-  async githubCallback(request: Request, response: Response) {
-    const { code } = request.query;
-    const accessToken = await this.authenticationService.authenticateUserByGithubCode(String(code));
-    return response.json(accessToken);
-  }
-
   async authenticate(request: Request, response: Response) {
-    const { code } = request.body;
-    
+    try {
+      const { code } = request.body;
+      const accessToken = await this.authenticationService.authenticateUserByGithubCode(String(code));
+      return response.json(accessToken);
+    } catch (err) {
+      return response.status(401).json({ message: err.message });
+    }
   }
 }
 
