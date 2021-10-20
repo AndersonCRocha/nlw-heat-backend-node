@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { createMessageController } from '../controllers';
+import { createMessageController, getLastThreeMessagesController } from '../controllers';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 export const messagesRouter = Router()
-  .post('/', createMessageController.handle.bind(createMessageController));
+  .post('/', ensureAuthenticated, createMessageController.handle.bind(createMessageController))
+  .get('/last3', getLastThreeMessagesController.handle.bind(getLastThreeMessagesController));

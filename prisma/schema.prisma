@@ -19,10 +19,10 @@ model User {
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  text      String
-  crated_at DateTime @default(now())
-  user      User     @relation(fields: [user_id], references: [id])
+  id         String   @id @default(uuid())
+  text       String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
 
   user_id String
   @@map("messages")

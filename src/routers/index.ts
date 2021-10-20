@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { authRouter } from './auth';
 import { messagesRouter } from './message';
+import { userRouter } from './user';
 
 export const router = Router()
   .use(authRouter)
-  .use(ensureAuthenticated)
+  .use('/users', userRouter)
   .use('/messages', messagesRouter);

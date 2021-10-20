@@ -21,7 +21,7 @@ class CreateMessageUseCase {
     io.emit('messages:new', {
       text: message.text,
       user_id: message.user_id,
-      created_at: message.crated_at,
+      created_at: message.created_at,
       user: {
         name: message.user.name,
         avatar_url: message.user.avatar_url,
