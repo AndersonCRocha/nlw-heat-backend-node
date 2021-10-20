@@ -1,7 +1,7 @@
-import { GithubClient } from "./GithubClient";
+import { GithubClient } from './GithubClient';
 
-const githubClient = new GithubClient()
+const githubClient = new GithubClient();
 
 export {
-  githubClient
-}
+  githubClient,
+};

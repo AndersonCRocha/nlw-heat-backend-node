@@ -1,5 +1,5 @@
-import { io } from "../app";
-import { prismaClient } from "../prisma"
+import { io } from '../app';
+import { prismaClient } from '../prisma';
 
 interface ICreateMessage {
   userId: string,
@@ -11,11 +11,11 @@ class CreateMessageUseCase {
     const message = await prismaClient.message.create({
       data: {
         text,
-        user_id: userId
+        user_id: userId,
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
 
     io.emit('messages:new', {
@@ -24,12 +24,12 @@ class CreateMessageUseCase {
       created_at: message.crated_at,
       user: {
         name: message.user.name,
-        avatar_url: message.user.avatar_url
-      }
+        avatar_url: message.user.avatar_url,
+      },
     });
 
     return message;
   }
 }
 
-export { CreateMessageUseCase }
+export { CreateMessageUseCase };

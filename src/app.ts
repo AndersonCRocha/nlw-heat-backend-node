@@ -11,11 +11,11 @@ const app = express()
   .use(express.json())
   .use(router);
 
-const httpServer = http.createServer(app)
+const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: '*'
-  }
+    origin: '*',
+  },
 });
 
-export { httpServer, io }
+export { httpServer, io };

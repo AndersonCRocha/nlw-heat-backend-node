@@ -1,22 +1,24 @@
 import jsonwebtoken from 'jsonwebtoken';
-import { GithubClient } from "../http/clients/GithubClient";
-import { prismaClient } from "../prisma";
+import { GithubClient } from '../http/clients/GithubClient';
+import { prismaClient } from '../prisma';
 
 class AuthenticationService {
-  constructor (
-    private githubClient: GithubClient
+  constructor(
+    private githubClient: GithubClient,
   ) {}
 
   async authenticateUserByGithubCode(code: string) {
     const accessToken = await this.githubClient.getAccessTokenByCode(code);
-    const userInfo = await this.githubClient.getUserInfo(accessToken)
+    const userInfo = await this.githubClient.getUserInfo(accessToken);
 
-    const { login, id, avatar_url, name } = userInfo;
+    const {
+      login, id, avatar_url: avatarUrl, name,
+    } = userInfo;
 
-    let user = await prismaClient.user.findFirst({ 
+    let user = await prismaClient.user.findFirst({
       where: {
-        github_id: id
-      }
+        github_id: id,
+      },
     });
 
     if (!user) {
@@ -24,25 +26,25 @@ class AuthenticationService {
         data: {
           name,
           login,
-          avatar_url,
+          avatar_url: avatarUrl,
           github_id: id,
-        }
+        },
       });
     }
 
     const token = jsonwebtoken.sign(
-      { 
+      {
         user: {
           name: user.name,
           avatar_url: user.avatar_url,
-          id: user.id 
-        }
+          id: user.id,
+        },
       },
       process.env.JWT_SECRET,
       {
         subject: user.id,
-        expiresIn: '1d'
-      }
+        expiresIn: '1d',
+      },
     );
 
     return {
@@ -52,4 +54,4 @@ class AuthenticationService {
   }
 }
 
-export { AuthenticationService }
+export { AuthenticationService };

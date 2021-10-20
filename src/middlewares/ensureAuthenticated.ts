@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 import jsonwebtoken from 'jsonwebtoken';
 
 interface ITokenPayload {
@@ -18,7 +18,7 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
     const { sub } = jsonwebtoken.verify(token, process.env.JWT_SECRET) as ITokenPayload;
     request.userId = sub;
 
-    next();
+    return next();
   } catch (err) {
     return response.status(401).json({ error_code: 'token.expired' });
   }

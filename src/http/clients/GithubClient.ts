@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios';
 
 interface IAccessTokenResponse {
   access_token: string
@@ -13,11 +13,11 @@ interface IGithubUserResponse {
 
 class GithubClient {
   async getUserInfo(accessToken: string) {
-    const { data } = await axios.get<IGithubUserResponse>("https://api.github.com/user", {
+    const { data } = await axios.get<IGithubUserResponse>('https://api.github.com/user', {
       headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    })
+        authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return data;
   }
@@ -30,14 +30,14 @@ class GithubClient {
         code,
         client_id: process.env.GITHUB_CLIENT_ID,
         client_secret: process.env.GITHUB_CLIENT_SECRET,
-      }, 
+      },
       headers: {
-        'Accept': 'application/json'
-      }
-    })
+        Accept: 'application/json',
+      },
+    });
 
     return data.access_token;
   }
 }
 
-export { GithubClient }
+export { GithubClient };

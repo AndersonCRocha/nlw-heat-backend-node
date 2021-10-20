@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import { AuthenticationService } from "../useCases/AuthenticationService";
+import { Request, Response } from 'express';
+import { AuthenticationService } from '../useCases/AuthenticationService';
 
 class AuthenticationController {
-  constructor (
-    private authenticationService: AuthenticationService
+  constructor(
+    private authenticationService: AuthenticationService,
   ) { }
 
   async githubSignIn(request: Request, response: Response) {
@@ -13,7 +13,7 @@ class AuthenticationController {
   async authenticate(request: Request, response: Response) {
     try {
       const { code } = request.body;
-      const accessToken = await this.authenticationService.authenticateUserByGithubCode(String(code));
+      const accessToken = await this.authenticationService.authenticateUserByGithubCode(`${code}`);
       return response.json(accessToken);
     } catch (err) {
       return response.status(401).json({ message: err.message });
@@ -21,4 +21,4 @@ class AuthenticationController {
   }
 }
 
-export { AuthenticationController }
+export { AuthenticationController };

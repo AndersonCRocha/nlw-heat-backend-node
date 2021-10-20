@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import { CreateMessageUseCase } from "../useCases/CreateMessageUseCase";
+import { Request, Response } from 'express';
+import { CreateMessageUseCase } from '../useCases/CreateMessageUseCase';
 
 class CreateMessageController {
-  constructor (
-    private messageService: CreateMessageUseCase
+  constructor(
+    private messageService: CreateMessageUseCase,
   ) { }
 
   async handle(request: Request, response: Response) {
@@ -13,4 +13,4 @@ class CreateMessageController {
   }
 }
 
-export { CreateMessageController }
+export { CreateMessageController };
